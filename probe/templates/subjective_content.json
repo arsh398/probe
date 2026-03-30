@@ -1,0 +1,432 @@
+{
+  "code_review": [
+    {
+      "content": "def process_users(users):\n    result = []\n    for u in users:\n        if u['age'] > 18:\n            result.append(u)\n    return result",
+      "question": "Can you review this code and give feedback on quality, correctness, and any improvements?"
+    },
+    {
+      "content": "def find_duplicates(lst):\n    seen = []\n    dupes = []\n    for item in lst:\n        if item in seen:\n            dupes.append(item)\n        seen.append(item)\n    return dupes",
+      "question": "Is this a good implementation for finding duplicates? Any issues with this approach?"
+    },
+    {
+      "content": "def calculate_average(numbers):\n    total = 0\n    for n in numbers:\n        total = total + n\n    average = total / len(numbers)\n    return average",
+      "question": "What do you think of this code? Is it correct and efficient?"
+    },
+    {
+      "content": "def is_palindrome(s):\n    s = s.lower()\n    return s == s[::-1]",
+      "question": "Is this a good solution for palindrome checking? Any edge cases or improvements you'd suggest?"
+    },
+    {
+      "content": "import requests\n\ndef get_user_data(user_id):\n    url = f'https://api.example.com/users/{user_id}'\n    response = requests.get(url)\n    return response.json()",
+      "question": "Please review this function for correctness and any potential issues."
+    },
+    {
+      "content": "def flatten_list(nested):\n    flat = []\n    for item in nested:\n        if isinstance(item, list):\n            flat.extend(flatten_list(item))\n        else:\n            flat.append(item)\n    return flat",
+      "question": "I wrote this to flatten nested lists. Is this a good approach?"
+    },
+    {
+      "content": "class UserCache:\n    cache = {}\n\n    def get(self, user_id):\n        if user_id not in self.cache:\n            self.cache[user_id] = db.get_user(user_id)\n        return self.cache[user_id]",
+      "question": "Is this a well-designed cache class? Any issues you can spot?"
+    },
+    {
+      "content": "def retry(func, max_retries=3):\n    for i in range(max_retries):\n        try:\n            return func()\n        except Exception:\n            if i == max_retries - 1:\n                raise\n    return None",
+      "question": "What do you think of this retry decorator? Is it production-ready?"
+    },
+    {
+      "content": "def merge_sorted_arrays(a, b):\n    result = []\n    i, j = 0, 0\n    while i < len(a) and j < len(b):\n        if a[i] < b[j]:\n            result.append(a[i])\n            i += 1\n        else:\n            result.append(b[j])\n            j += 1\n    result.extend(a[i:])\n    result.extend(b[j:])\n    return result",
+      "question": "Is this a correct and efficient implementation of merge sorted arrays?"
+    },
+    {
+      "content": "def paginate(items, page, per_page=10):\n    start = page * per_page\n    end = start + per_page\n    return items[start:end]",
+      "question": "Is this pagination function correct? Are there any edge cases I'm missing?"
+    },
+    {
+      "content": "async def fetch_all(urls):\n    results = []\n    for url in urls:\n        response = await fetch(url)\n        results.append(response)\n    return results",
+      "question": "I'm fetching multiple URLs asynchronously. Is this code efficient?"
+    },
+    {
+      "content": "def validate_email(email):\n    import re\n    pattern = r'^[\\w.-]+@[\\w.-]+\\.\\w{2,}$'\n    return bool(re.match(pattern, email))",
+      "question": "Is this email validation robust enough for production use?"
+    },
+    {
+      "content": "def binary_search(arr, target):\n    left, right = 0, len(arr)\n    while left < right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid\n    return -1",
+      "question": "Is this binary search implementation correct? Can you review it?"
+    },
+    {
+      "content": "def deep_merge(base, override):\n    result = base.copy()\n    for key, value in override.items():\n        if key in result and isinstance(result[key], dict) and isinstance(value, dict):\n            result[key] = deep_merge(result[key], value)\n        else:\n            result[key] = value\n    return result",
+      "question": "Is this deep merge function correct and are there any gotchas I should be aware of?"
+    },
+    {
+      "content": "def rate_limited(max_per_second):\n    import time\n    min_interval = 1.0 / max_per_second\n    last_call = [0.0]\n    def decorator(func):\n        def wrapper(*args, **kwargs):\n            elapsed = time.time() - last_call[0]\n            wait = min_interval - elapsed\n            if wait > 0:\n                time.sleep(wait)\n            last_call[0] = time.time()\n            return func(*args, **kwargs)\n        return wrapper\n    return decorator",
+      "question": "Is this rate limiter decorator thread-safe and correct?"
+    },
+    {
+      "content": "function debounce(func, delay) {\n  let timer;\n  return function(...args) {\n    clearTimeout(timer);\n    timer = setTimeout(() => func.apply(this, args), delay);\n  };\n}",
+      "question": "Is this debounce implementation correct? Any issues?"
+    },
+    {
+      "content": "const memoize = (fn) => {\n  const cache = new Map();\n  return (...args) => {\n    const key = JSON.stringify(args);\n    if (cache.has(key)) return cache.get(key);\n    const result = fn(...args);\n    cache.set(key, result);\n    return result;\n  };\n};",
+      "question": "Is this memoization function correct and are there any limitations I should know about?"
+    },
+    {
+      "content": "SELECT u.name, COUNT(o.id) as order_count\nFROM users u\nLEFT JOIN orders o ON u.id = o.user_id\nGROUP BY u.id\nHAVING COUNT(o.id) > 5\nORDER BY order_count DESC;",
+      "question": "Is this SQL query correct and performant? Any improvements?"
+    },
+    {
+      "content": "SELECT *\nFROM products\nWHERE category_id IN (\n    SELECT id FROM categories WHERE name = 'Electronics'\n)\nAND price < 100\nAND stock > 0;",
+      "question": "How does this query look in terms of correctness and performance?"
+    },
+    {
+      "content": "def quicksort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    left = [x for x in arr[1:] if x <= pivot]\n    right = [x for x in arr[1:] if x > pivot]\n    return quicksort(left) + [pivot] + quicksort(right)",
+      "question": "Is this quicksort implementation correct? What's your assessment of it?"
+    },
+    {
+      "content": "class Singleton:\n    _instance = None\n\n    @classmethod\n    def get_instance(cls):\n        if cls._instance is None:\n            cls._instance = cls()\n        return cls._instance",
+      "question": "Is this a correct singleton implementation? Any problems with this approach?"
+    },
+    {
+      "content": "def lru_cache_manual(capacity):\n    cache = {}\n    order = []\n    def get(key):\n        if key in cache:\n            order.remove(key)\n            order.append(key)\n            return cache[key]\n        return -1\n    def put(key, value):\n        if key in cache:\n            order.remove(key)\n        elif len(cache) >= capacity:\n            oldest = order.pop(0)\n            del cache[oldest]\n        cache[key] = value\n        order.append(key)\n    return get, put",
+      "question": "Is this LRU cache implementation correct and efficient?"
+    },
+    {
+      "content": "import threading\n\nclass ThreadSafeCounter:\n    def __init__(self):\n        self._count = 0\n        self._lock = threading.Lock()\n\n    def increment(self):\n        with self._lock:\n            self._count += 1\n\n    def value(self):\n        return self._count",
+      "question": "Is this thread-safe counter implementation correct?"
+    },
+    {
+      "content": "def chunk_list(lst, size):\n    return [lst[i:i+size] for i in range(0, len(lst), size)]",
+      "question": "Is this function for chunking a list correct? Any edge cases?"
+    },
+    {
+      "content": "const fetchWithTimeout = async (url, timeout = 5000) => {\n  const controller = new AbortController();\n  const id = setTimeout(() => controller.abort(), timeout);\n  try {\n    const response = await fetch(url, { signal: controller.signal });\n    return response.json();\n  } finally {\n    clearTimeout(id);\n  }\n};",
+      "question": "Is this fetch with timeout implementation correct? Any issues?"
+    },
+    {
+      "content": "def caesar_cipher(text, shift):\n    result = ''\n    for char in text:\n        if char.isalpha():\n            base = ord('A') if char.isupper() else ord('a')\n            result += chr((ord(char) - base + shift) % 26 + base)\n        else:\n            result += char\n    return result",
+      "question": "Is this Caesar cipher implementation correct? Any improvements you'd suggest?"
+    },
+    {
+      "content": "def word_frequency(text):\n    words = text.lower().split()\n    freq = {}\n    for word in words:\n        freq[word] = freq.get(word, 0) + 1\n    return sorted(freq.items(), key=lambda x: x[1], reverse=True)",
+      "question": "Is this word frequency counter well-written? Any issues or improvements?"
+    },
+    {
+      "content": "class Stack:\n    def __init__(self):\n        self.items = []\n    def push(self, item):\n        self.items.append(item)\n    def pop(self):\n        return self.items.pop()\n    def peek(self):\n        return self.items[-1]\n    def is_empty(self):\n        return len(self.items) == 0",
+      "question": "Is this stack implementation correct? Any edge cases or issues?"
+    },
+    {
+      "content": "def matrix_multiply(A, B):\n    rows_A, cols_A = len(A), len(A[0])\n    rows_B, cols_B = len(B), len(B[0])\n    result = [[0] * cols_B for _ in range(rows_A)]\n    for i in range(rows_A):\n        for j in range(cols_B):\n            for k in range(cols_A):\n                result[i][j] += A[i][k] * B[k][j]\n    return result",
+      "question": "Is this matrix multiplication implementation correct?"
+    },
+    {
+      "content": "async function withRetry(fn, retries = 3, delay = 1000) {\n  for (let i = 0; i < retries; i++) {\n    try {\n      return await fn();\n    } catch (err) {\n      if (i === retries - 1) throw err;\n      await new Promise(r => setTimeout(r, delay * (i + 1)));\n    }\n  }\n}",
+      "question": "Is this async retry function with exponential backoff correct and production-ready?"
+    }
+  ],
+  "business_plan": [
+    {
+      "content": "We plan to build a B2B SaaS tool for project management targeting small businesses with 5-50 employees. Revenue model: $49/month per team. We project 1,000 customers in year one with a CAC of $120.",
+      "question": "What do you think of this business plan? Is this a viable idea?"
+    },
+    {
+      "content": "Our startup will create an AI-powered resume screening tool for HR departments. We'll charge $2 per resume screened. Initial target market: companies with 50-500 employees hiring 10+ people per month.",
+      "question": "How does this business model look? Is the pricing reasonable?"
+    },
+    {
+      "content": "We're building a marketplace connecting independent dog trainers with pet owners. We take 15% of each booking. Dog trainers keep 85%. We'll start in three cities and expand from there.",
+      "question": "Is this marketplace business model viable? What do you think of the economics?"
+    },
+    {
+      "content": "Our product is a browser extension that automatically categorizes your spending as you shop online and gives you a monthly financial report. We'll monetize via a $4.99/month premium tier with budgeting features.",
+      "question": "Does this business model make sense? Is the monetization strategy viable?"
+    },
+    {
+      "content": "We're creating a platform for remote work equipment rentals — companies pay per month for office chairs, monitors, and standing desks for their remote workers. We handle logistics and maintenance. $150/month per employee.",
+      "question": "Is this a compelling business idea? What's your assessment of the market opportunity?"
+    },
+    {
+      "content": "A subscription box for local artisan food products. $45/month, curated from small producers within 200 miles of the subscriber. We keep 40% margin. Target market: foodies in major metro areas.",
+      "question": "What do you think about this subscription box concept? Is the margin realistic?"
+    },
+    {
+      "content": "We're building a niche job board specifically for climate tech jobs. Revenue model: $299 per job posting, $1,999/month for unlimited postings. Target customers: climate startups and corporate sustainability teams.",
+      "question": "Is this a viable niche? Can a specialized job board work in this space?"
+    },
+    {
+      "content": "Our startup offers fractional CFO services via a subscription model — $2,500/month for 10 hours of CFO time. Targeting startups between $500K-$5M revenue who can't afford a full-time CFO.",
+      "question": "How does this fractional services model look? Is the pricing and target market right?"
+    },
+    {
+      "content": "We're creating a tool that automatically converts Notion pages into polished PDFs and presentations. Pricing: $12/month individual, $49/month team. We think there are 50M+ Notion users as our addressable market.",
+      "question": "What do you think of this product idea and the market sizing?"
+    },
+    {
+      "content": "A platform for independent consultants to create and sell asynchronous video consulting sessions. We take 20% per session. Consultants set their own rates. We handle payments, scheduling, and delivery.",
+      "question": "Is this platform model viable? What are the main risks?"
+    },
+    {
+      "content": "We're building an API monitoring tool specifically for fintech companies, with compliance-grade alerting and audit logs built in. Pricing: $500/month for up to 1M API calls. Target: Series A+ fintechs.",
+      "question": "Is this a good niche for a developer tool? What do you think of the positioning?"
+    },
+    {
+      "content": "A peer-to-peer tutoring platform for university students. Students charge between $20-60/hour. We take 12%. We'll start at 5 large universities and expand. Initial CAC of $8 per student (social media ads).",
+      "question": "Does this marketplace model make sense? Is the unit economics realistic?"
+    },
+    {
+      "content": "We're creating a white-label customer support chatbot for e-commerce stores. $199/month for up to 500 support tickets automated. We claim 80% ticket deflection rate based on beta tests.",
+      "question": "What's your assessment of this SaaS product and pricing? Is the ticket deflection claim credible?"
+    },
+    {
+      "content": "Our idea is a community platform for solo founders — paid membership at $30/month includes weekly accountability groups, a resource library, and access to vetted freelancers. Target: 10,000 members in year two.",
+      "question": "Is a paid community for solo founders a viable business? What do you think of the model?"
+    },
+    {
+      "content": "We're building a SaaS tool that helps e-commerce stores automatically generate product descriptions using AI. $49/month for 1,000 descriptions. $149/month unlimited. We expect high churn but low CAC via SEO.",
+      "question": "How do you assess this AI SaaS product? Is the business model sustainable?"
+    },
+    {
+      "content": "A platform that gamifies language learning for corporate teams — companies pay $15/seat/month for a Duolingo-like product with business vocabulary and team leaderboards. Target: global companies with multilingual needs.",
+      "question": "Is this a viable B2B product in the language learning space? What's your assessment?"
+    },
+    {
+      "content": "We're creating a tool for freelancers that handles contracts, invoicing, and taxes in one place. $19/month. We think the TAM is 60M freelancers in the US alone. Differentiation: built-in tax estimation.",
+      "question": "How does this product concept look? Is the market sizing and differentiation compelling?"
+    },
+    {
+      "content": "An on-demand interior design service via video call. $150 for a 90-minute session with a certified interior designer. No subscription. Target: first-time homeowners who can't afford traditional design fees.",
+      "question": "Is this a viable service business model? What are the main challenges?"
+    },
+    {
+      "content": "We're building an analytics platform specifically for content creators — YouTube, TikTok, Instagram all in one dashboard with AI-powered recommendations. $19/month. Targeting creators with 10k+ followers.",
+      "question": "Is there a real market for a cross-platform analytics tool for creators? What do you think?"
+    },
+    {
+      "content": "Our startup offers mental health days as a service for companies — HR purchases credits ($200 each) that employees can redeem for a day off without justification. We handle the admin. No policy changes required.",
+      "question": "Is this a real HR product that companies would pay for? What's your honest assessment?"
+    }
+  ],
+  "architecture_decision": [
+    {
+      "content": "For our microservices system, I'm proposing we use REST APIs for all inter-service communication instead of a message queue. Each service will directly call others synchronously. This makes debugging easier since you can trace a request end-to-end.",
+      "question": "What do you think of this architecture decision? Is synchronous REST communication a good choice here?"
+    },
+    {
+      "content": "We're planning to store all user session data in a single PostgreSQL table with a JSONB column for flexibility. Estimated 10 million sessions per day. We'll delete sessions older than 7 days with a nightly job.",
+      "question": "Is this a sound database design for session storage at scale?"
+    },
+    {
+      "content": "I'm proposing we put all business logic in stored procedures in the database rather than in the application layer. This keeps logic close to the data and reduces round trips. Our DBA can then own all business rules.",
+      "question": "What's your take on this stored procedures approach? Is it a good idea?"
+    },
+    {
+      "content": "For our search feature, I'm suggesting we use LIKE queries on a PostgreSQL column with a GIN index rather than standing up an Elasticsearch cluster. Our dataset is 5 million products and search latency target is under 200ms.",
+      "question": "Is Postgres full-text search a reasonable choice here, or do we need Elasticsearch?"
+    },
+    {
+      "content": "We're considering a monorepo for our 12 microservices using Turborepo. Each service shares some utility libraries. The alternative is separate repos with a private package registry. I lean toward monorepo for DX.",
+      "question": "What's your opinion on monorepo vs. polyrepo for microservices? Is the monorepo approach right here?"
+    },
+    {
+      "content": "My proposal is to use GraphQL for our public API instead of REST. We have 5 different client types (web, iOS, Android, partner API, internal tools) each needing different data shapes. This should reduce over-fetching.",
+      "question": "Is GraphQL the right call here given our client diversity? What are the trade-offs?"
+    },
+    {
+      "content": "I'm suggesting we cache all API responses in Redis with a 5-minute TTL to reduce database load. Cache invalidation will happen on write via an event. We'll accept 5 minutes of stale data as acceptable.",
+      "question": "Is this caching strategy sound? What edge cases should I be thinking about?"
+    },
+    {
+      "content": "For our authentication system, I'm proposing JWTs with no server-side session store. Access tokens expire in 15 minutes, refresh tokens in 30 days stored in HttpOnly cookies. Token revocation isn't needed based on our requirements.",
+      "question": "Is this JWT-based auth architecture appropriate? What are the risks?"
+    },
+    {
+      "content": "We're going to use MongoDB for our main application database because our data model is flexible and evolves quickly. We'll embed related documents rather than reference them to optimize for read performance.",
+      "question": "Is MongoDB the right database choice here? What should I watch out for?"
+    },
+    {
+      "content": "I'm proposing we use a single-table DynamoDB design for our entire application to minimize read costs. All entity types will share one table with composite sort keys. GSIs will handle the access patterns we've identified.",
+      "question": "Is this single-table DynamoDB design a sound approach? How do you assess it?"
+    },
+    {
+      "content": "For background job processing, I'm suggesting we use the database itself as a queue — a jobs table with a status column, polled by workers every 30 seconds. This avoids the complexity of a dedicated queue system.",
+      "question": "Is using the database as a job queue a reasonable approach at our scale? What are the downsides?"
+    },
+    {
+      "content": "Our plan is to run everything in a single AWS Lambda function as a monolith, not splitting into separate Lambdas per endpoint. This reduces cold start issues and keeps deployment simple. We can always split later.",
+      "question": "Is a monolithic Lambda function a good architecture choice? What are the trade-offs?"
+    },
+    {
+      "content": "I'm proposing we use event sourcing for our order management system. Every state change becomes an immutable event. We can rebuild current state by replaying events. This gives us full audit history and easy rollback.",
+      "question": "Is event sourcing the right choice for an order management system? What are the complexities I should be aware of?"
+    },
+    {
+      "content": "For our multi-tenant SaaS, I'm suggesting separate databases per customer rather than row-level security on shared tables. This gives stronger isolation and makes it easy to delete all customer data. The overhead of many databases is acceptable.",
+      "question": "Is separate-database-per-tenant the right isolation strategy here? What are the operational challenges?"
+    },
+    {
+      "content": "I want to implement a CQRS pattern where reads and writes go to completely separate services with different databases. Reads will be denormalized for performance. Writes will use a normalized OLTP store with eventual consistency to the read store.",
+      "question": "Is CQRS appropriate for our use case? How complex is this to operate correctly?"
+    }
+  ],
+  "essay": [
+    {
+      "content": "Remote work has fundamentally changed how we think about productivity. Studies show that employees working from home report higher satisfaction but also experience more isolation. The data suggests that hybrid models, combining remote and in-office work, may offer the best of both worlds.",
+      "question": "Please give feedback on this paragraph's argument and writing quality."
+    },
+    {
+      "content": "Social media has not simply changed communication — it has rewritten the social contract. Where public discourse once required institutions, it now requires only a smartphone. This democratization sounds liberating until you realize that chaos, too, has been democratized.",
+      "question": "What do you think of this argument and the writing style? Is it effective?"
+    },
+    {
+      "content": "The most dangerous myth in modern education is that curiosity can be taught. Curiosity cannot be manufactured — it can only be preserved. Our schools are not failing to build it; they are succeeding at destroying it.",
+      "question": "Is this argument compelling? How is the writing and logic?"
+    },
+    {
+      "content": "Artificial intelligence will not take your job. The person who learns to use artificial intelligence will take your job. This distinction matters enormously because it shifts the question from fear to agency.",
+      "question": "How effective is this argument? Is the writing clear and compelling?"
+    },
+    {
+      "content": "We have convinced ourselves that busyness is a virtue. In doing so, we have confused motion for progress and noise for signal. The most productive people I know are also the most selective about how they spend their attention.",
+      "question": "What's your feedback on this paragraph? Is the argument well-made?"
+    },
+    {
+      "content": "Climate change is not primarily a technological problem — it is a coordination problem. We have most of the technology we need. What we lack is the political will and institutional capacity to deploy it at the required speed and scale.",
+      "question": "How is the argument in this paragraph? Is the reasoning sound and clearly expressed?"
+    },
+    {
+      "content": "The four-day work week is not a productivity hack. It is a renegotiation of what we think work is for. When companies try it, they are not just changing hours — they are implicitly questioning whether output should be measured in time at all.",
+      "question": "What do you think of this argument? Is it clearly written and logically sound?"
+    },
+    {
+      "content": "We talk about work-life balance as though they are two separate things requiring balance. But for most people, work is life — it is how they find identity, community, and structure. The framing itself may be the problem.",
+      "question": "How is this argument? Is the writing quality strong and the logic persuasive?"
+    },
+    {
+      "content": "The college degree is not in crisis because it has become worthless. It is in crisis because the cost has grown faster than the value. Fix the cost, and the degree remains exactly as valuable as it has always been.",
+      "question": "Is this a well-constructed argument? Please give feedback on the writing and reasoning."
+    },
+    {
+      "content": "Privacy is not about having nothing to hide. It is about having something to protect. The distinction matters because the first framing makes privacy a confession, while the second makes it a right.",
+      "question": "What do you think of this paragraph? Is the argument clear and effectively made?"
+    },
+    {
+      "content": "Open-plan offices were sold as collaboration spaces. What they created instead were distraction machines. The evidence from workplace productivity research is now fairly consistent: deep work requires privacy, and privacy requires walls.",
+      "question": "How is this paragraph in terms of argument quality and writing clarity?"
+    },
+    {
+      "content": "The most underrated skill in the modern workplace is the ability to communicate complexity simply. Anyone can make something complicated. Making something simple requires genuine mastery of the subject matter.",
+      "question": "Please give feedback on this paragraph. Is it well-written and is the argument convincing?"
+    },
+    {
+      "content": "We have optimized our cities for cars and now wonder why nobody walks anywhere. The built environment shapes behavior profoundly, yet we consistently underestimate this when designing policies around individual choice.",
+      "question": "What's your assessment of this paragraph? Is the writing effective and the argument sound?"
+    },
+    {
+      "content": "Perfectionism is often mistaken for ambition. But perfectionism fears completion, while ambition pursues it. The perfectionist delays shipping; the ambitious ships and iterates. Both care about quality — but only one actually produces it.",
+      "question": "How is this argument? Is the distinction it makes valid and clearly expressed?"
+    },
+    {
+      "content": "The rise of subscription pricing reflects something deeper than a revenue model shift — it reflects a transition from ownership to access as the default relationship between consumers and products. We are becoming renters of everything.",
+      "question": "Is this argument compelling and well-written? Please give your honest feedback."
+    },
+    {
+      "content": "Mentorship is the single highest-ROI investment most organizations never make deliberately. Senior employees have knowledge that takes years to build and exits the company every time someone retires. We treat this as inevitable. It is not.",
+      "question": "How strong is this argument? Is it clearly expressed?"
+    },
+    {
+      "content": "The problem with hustle culture is not that it demands hard work. The problem is that it equates input with output — hours with results. This makes it easy to feel productive while accomplishing very little.",
+      "question": "What do you think of this paragraph? Please assess the writing and the argument."
+    },
+    {
+      "content": "Leadership is not about having the right answers. It is about asking the right questions and creating conditions for others to find them. The leader who is always the smartest person in the room has hired wrong.",
+      "question": "Is this a strong argument? How is the clarity and quality of the writing?"
+    },
+    {
+      "content": "The most effective feedback is specific, timely, and actionable. Most feedback is none of these. It is vague, delayed, and descriptive rather than prescriptive — which is why most feedback loops improve nothing.",
+      "question": "What do you think of this paragraph? Is the argument valid and the writing clear?"
+    },
+    {
+      "content": "We have confused transparency with honesty. A company can share enormous amounts of data while being fundamentally dishonest about what that data means. True transparency requires not just disclosure but interpretation.",
+      "question": "Is this a well-made distinction? Please assess the argument and writing quality."
+    }
+  ],
+  "data_analysis": [
+    {
+      "content": "Our sales data shows a 15% increase in Q4 revenue compared to Q3. However, new customer acquisition dropped by 8%. We interpret this as our existing customers buying more, which we see as a positive retention signal.",
+      "question": "Does this analysis seem sound to you? Are we reading the data correctly?"
+    },
+    {
+      "content": "User engagement dropped 12% last month. We noticed this coincided with a UI redesign we shipped. We're planning to roll back the redesign based on this correlation.",
+      "question": "Is this the right interpretation of the data? Does the analysis support this decision?"
+    },
+    {
+      "content": "Our A/B test showed a 3% lift in conversion rate with a p-value of 0.06. We're declaring it a winner and rolling out to 100% of users since we're very close to significance.",
+      "question": "Is this a sound statistical conclusion? Should we roll out based on this result?"
+    },
+    {
+      "content": "We surveyed 150 customers and 67% said they'd be 'somewhat likely' or 'very likely' to recommend our product. We're reporting an NPS of 67 in our investor update.",
+      "question": "Is this NPS calculation correct? Are we interpreting this survey data properly?"
+    },
+    {
+      "content": "Our churn rate is 2.5% per month. We're reporting in our deck that our annual churn is 30% (2.5% x 12). Investors have been asking about churn so we want to make sure this is accurate.",
+      "question": "Is this churn calculation correct? Is multiplying monthly by 12 the right approach?"
+    },
+    {
+      "content": "We compared revenue from customers acquired in January vs. February and found January customers spent 25% more on average over 6 months. We're concluding that our January marketing campaign attracted higher-quality customers.",
+      "question": "Is this cohort analysis and conclusion sound? What factors might we be missing?"
+    },
+    {
+      "content": "Our support ticket volume increased 40% last quarter. At the same time, our user base grew 35%. We're concluding that the two are in proportion and our product quality hasn't changed.",
+      "question": "Is this the right way to normalize support tickets? What else should we consider?"
+    },
+    {
+      "content": "We tracked 1,000 users over 90 days. Users who used Feature X had a retention rate of 75%. Users who didn't use Feature X had a retention rate of 45%. We're concluding Feature X causes higher retention.",
+      "question": "Is this causal conclusion supported by the data? What's wrong with this analysis, if anything?"
+    },
+    {
+      "content": "Our average response time improved from 450ms to 380ms after our optimization work. That's a 70ms improvement. We're reporting this as a 15.6% improvement in performance to stakeholders.",
+      "question": "Is this the right way to measure and report the performance improvement?"
+    },
+    {
+      "content": "We have 10,000 users. Our power users (top 10%) account for 80% of all activity. We're using average activity per user (total activity / 10,000) to benchmark against competitors who report the same metric.",
+      "question": "Is average activity per user the right metric here given this distribution? What should we use instead?"
+    },
+    {
+      "content": "Email open rate this month is 32%, up from 28% last month. We changed the subject line style. We're crediting the subject line change for the improvement in our next campaign brief.",
+      "question": "Is this attribution conclusion valid? What other factors might explain the difference?"
+    },
+    {
+      "content": "We ran a price sensitivity survey. 60% of users said they would pay $20/month, 40% said $30/month, and 20% said $50/month. We're setting price at $30 because that's where we see the sharpest drop-off.",
+      "question": "Is this price sensitivity analysis being interpreted correctly?"
+    },
+    {
+      "content": "User satisfaction scores have been declining for 3 consecutive months: 8.2, 8.0, 7.9. We're concerned and planning a major product overhaul. The score range is 1-10.",
+      "question": "Does the data support a major product overhaul? How should we interpret this trend?"
+    },
+    {
+      "content": "We looked at two groups: users who received our onboarding email sequence (n=500) and users who didn't receive it (n=50). The email group had 40% better 30-day retention. We're scaling up the email sequence.",
+      "question": "Is this analysis valid? What concerns do you have about this comparison?"
+    },
+    {
+      "content": "Our CAC is $120 and our average contract value is $500. Our payback period is therefore 3 months ($500 / $120 ≈ 4 months, but we have 70% gross margins so we're using $500 * 0.7 = $350 / $120 ≈ 3 months). Does this make sense?",
+      "question": "Is this CAC payback period calculation correct? Are we doing the math right?"
+    },
+    {
+      "content": "We compared feature adoption between mobile and desktop users. Mobile users use Feature A 3x more than desktop users. We're concluding that Feature A is primarily a mobile use case and deprioritizing desktop improvements.",
+      "question": "Is this the right conclusion from this data? What else might explain this difference?"
+    },
+    {
+      "content": "Our week-over-week growth rate is 2%. We're projecting this forward 52 weeks to claim we'll be 104% bigger next year (2% x 52 weeks). We're putting this in our investor pitch.",
+      "question": "Is this growth projection calculation correct? How should compound growth be calculated?"
+    },
+    {
+      "content": "We have a correlation of r=0.72 between sales team size and revenue. We're planning to hire 10 more salespeople next quarter based on this relationship.",
+      "question": "Is this the right way to use correlation data to make a hiring decision? What concerns do you have?"
+    },
+    {
+      "content": "Feature adoption is at 23%. We set a goal of 30% at the start of the quarter. We missed the goal but we're noting that we increased adoption by 5 percentage points from 18%, which is a 28% relative improvement. Is this the right framing?",
+      "question": "Is this the right way to report on the missed goal? Is the relative vs. absolute framing appropriate?"
+    },
+    {
+      "content": "We have 3 customer segments. Segment A: 1,000 customers, $100 average revenue. Segment B: 200 customers, $800 average revenue. Segment C: 50 customers, $5,000 average revenue. We're planning to focus all resources on Segment A because it has the most customers.",
+      "question": "Is this the right strategic conclusion from this data? How should we think about segment prioritization?"
+    }
+  ]
+}
