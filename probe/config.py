@@ -1,8 +1,9 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent
 TEMPLATES_DIR = BASE_DIR / "probe" / "templates"
-DB_PATH = BASE_DIR / "probe.db"
+DB_PATH = Path(os.environ.get("DB_PATH", str(BASE_DIR / "probe.db")))
 DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 # Test generation defaults

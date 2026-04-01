@@ -1,0 +1,12 @@
+services:
+  probe:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - probe_data:/data
+    environment:
+      - DB_PATH=/data/probe.db
+
+volumes:
+  probe_data:

@@ -1,5 +1,8 @@
 """Database setup — SQLModel + SQLite."""
 
+from contextlib import contextmanager
+from typing import Generator
+
 from sqlmodel import SQLModel, create_engine, Session
 from probe.config import DATABASE_URL
 
@@ -11,6 +14,8 @@ def init_db() -> None:
     SQLModel.metadata.create_all(engine)
 
 
-def get_session() -> Session:
-    """Return a new database session. Caller is responsible for closing it."""
-    return Session(engine)
+@contextmanager
+def get_session() -> Generator[Session, None, None]:
+    """Context manager returning a database session that auto-commits and closes."""
+    with Session(engine) as session:
+        yield session

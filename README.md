@@ -198,11 +198,11 @@ Canary results feed into `analysis/distribution.py` which runs a KS test to dete
 ## Roadmap
 
 - [x] Week 1 — Claim generators, pressure engine, scoring engine, templates
-- [ ] Week 2 — Test runner, provider adapters, end-to-end pipeline
-- [ ] Week 3 — Subjective scorer (embeddings + VADER), full integration test
-- [ ] Week 4 — Analysis engine, evolution loop, CLI + JSON output
-- [ ] Week 5 — FastAPI + React dashboard, benchmark report
-- [ ] Week 6 — Canary SDK, Docker, launch
+- [x] Week 2 — Test runner, provider adapters, end-to-end pipeline
+- [x] Week 3 — Subjective scorer (embeddings + VADER), `probe report` command
+- [x] Week 4 — `probe compare`, `probe evolve` (evolutionary test generation)
+- [x] Week 5 — FastAPI + React dashboard, `probe serve`
+- [x] Week 6 — Docker (multi-stage), `docker-compose.yml`, Ollama support
 
 ---
 

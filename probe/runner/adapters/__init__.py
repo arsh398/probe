@@ -10,6 +10,7 @@ _ADAPTERS = {
     "anthropic": AnthropicAdapter(),
     "google": GoogleAdapter(),
     "generic": GenericAdapter(),
+    "ollama": GenericAdapter(base_url="http://localhost:11434"),
 }
 
 
